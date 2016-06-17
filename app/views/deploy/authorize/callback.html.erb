@@ -1,0 +1,22 @@
+<html>
+<body>
+	<div style="margin: 20px">
+		Please set ENV['CONTENTFUL_MANAGEMENT_TOKEN'] to <span id="token"></span>
+	</div>
+	<div style="margin: 20px">
+		and either redeploy the app or run:
+	</div>
+
+	<pre>
+		$ heroku run console
+		> ContentfulDeployment.perform
+	</pre>
+
+	<script>
+		var data = document.location.hash.substring(1, document.location.hash.length); //remove # from start of hash
+
+	   	var access_token = data.split("&")[0].split("=")[1]; // hash is in format access_token=xyz&token_type=bearer
+	    document.getElementById('token').innerHTML = access_token;
+	</script>
+</body>
+</html>

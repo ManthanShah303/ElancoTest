@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Atopica</title>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width">
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link href="/assets/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="/assets/jquery.bxslider.css" rel="stylesheet" type="text/css"/>
+  <link href="/assets/style.css" rel="stylesheet" type="text/css"/>
+  <link rel="shortcut icon" type="image/png" href="/assets/favicon-1.png">
+  <script src="/assets/jquery-1.12.1.min.js" type="text/javascript"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="/assets/resize.js" type="text/javascript"></script>
+  <script src="/assets/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/assets/jquery.bxslider.js" type="text/javascript"></script>
+  <script>
+  $(function() {
+    $( "#accordion" ).accordion({
+           heightStyle: "content",
+           collapsible: true
+    });
+  });
+  </script>
+</head>
+<body>
+	<header>
+		<%= render "layouts/header" %>
+	</header>
+
+	<%= yield %>
+
+	<footer>
+	    <%= render "layouts/footer" %>
+	</footer>
+</body>
+</html>

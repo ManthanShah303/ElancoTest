@@ -1,0 +1,2 @@
+module Deploy::AuthorizeHelper
+end
