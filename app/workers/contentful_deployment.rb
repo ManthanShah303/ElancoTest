@@ -74,18 +74,18 @@ module ContentfulDeployment
         :success
     end
 
-    def self.create_asset(asset_identity)
-        # set up the basic HTTP request, using proxy if configured, which will be used to push entries to the destination space
+    def self.create_asset(asset_id)
+        # set up the basic HTTP request, using proxy if configured, which will be used to create assets to the space
         request = ContentfulEntryMigration.proxy
                     .auth("Bearer #{ENV['CONTENTFUL_MANAGEMENT_TOKEN']}")
                     .headers("Content-Type" => "application/vnd.contentful.management.v1+json")
 
-        asset_id = asset_identity.to_s
+        @asset_id = asset_id.to_s
         current_entry_version = 1
         puts "Creating asset to contentful space #{ENV['CONTENTFUL_SPACE_ID']}\n"
 
         res = request.headers("X-Contentful-Version" => current_entry_version)
-                     .put("https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{asset_id}")
+                     .put("https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}")
 
         puts res
         return res.body.inspect if res.code >= 400
