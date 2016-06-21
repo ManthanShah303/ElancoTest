@@ -4,10 +4,11 @@ This repository is for Atopica website built upon Ruby on Rails.
 
 ## Environment Setup
 
-The development environment can be setup on windows. Please follwo the following steps: -  
+The development environment can be setup on windows. Please follow the following steps: -  
 
 A. Create a new folder on your system and pull the latest code from this repository  
 B. Set the following environment variables : -  
+
   #####Required
   1. CONTENTFUL_SPACE_ID -> Space Id of the associated app
   2. CONTENTFUL_MANAGEMENT_TOKEN -> A token set during Contentful Authentication
