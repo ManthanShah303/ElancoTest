@@ -81,15 +81,38 @@ module ContentfulDeployment
                     .headers("Content-Type" => "application/vnd.contentful.management.v1+json")
 
         @asset_id = asset_id.to_s
+        # better to take entry value fropm user and if not passing then consider 1 as default
         current_entry_version = 1
         puts "Creating asset to contentful space #{ENV['CONTENTFUL_SPACE_ID']}\n"
+        # need to replace body fields with input paramerters 
+        # IMP - Must need to pass asset path need to be uploaded if you want to craete without - would be better  
+        # to pass any valid sample asset path(fake path may also work but need to stop processing from Contentful) and change the same from contentful.
+        body ={
+                  "fields": {
+                        "title": {
+                          "en-GB": "test_pack" #Please pass locale from user input
+                        },
+                        "file": {
+                          "en-GB": {
+                            "contentType": "image/jpeg",
+                            "fileName": "example.jpeg",
+                            "upload": "http://images.all-free-download.com/images/graphiclarge/daisy_pollen_flower_22053399.jpg"
+                          }
+                        }
+                      }
+                    }
 
         res = request.headers("X-Contentful-Version" => current_entry_version)
-                     .put("https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}")
-
+                     .put("https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}", :json=>body)
+        process = request.headers("X-Contentful-Version" => current_entry_version)
+        #Please pass locale from user input
+                     .put("https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}/files/en-GB/process")            
+        
+        puts "https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}"
         puts res
+        puts "<<process" 
+        puts process
         return res.body.inspect if res.code >= 400
-
         puts "Asset created successfully!"
     end
 end
