@@ -90,13 +90,13 @@ module ContentfulDeployment
         body ={
                   "fields": {
                         "title": {
-                          "en-GB": "test_pack" #Please pass locale from user input
+                          "en-GB": "#{@asset_id}" #Please pass locale from user input
                         },
                         "file": {
                           "en-GB": {
                             "contentType": "image/jpeg",
                             "fileName": "example.jpeg",
-                            "upload": "http://images.all-free-download.com/images/graphiclarge/daisy_pollen_flower_22053399.jpg"
+                            "upload": "http://localhost/flower_22053399.jpg"
                           }
                         }
                       }
@@ -104,15 +104,14 @@ module ContentfulDeployment
 
         res = request.headers("X-Contentful-Version" => current_entry_version)
                      .put("https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}", :json=>body)
-        process = request.headers("X-Contentful-Version" => current_entry_version)
-        #Please pass locale from user input
-                     .put("https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}/files/en-GB/process")            
         
-        puts "https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}"
-        puts res
-        puts "<<process" 
-        puts process
+        process = request.headers("X-Contentful-Version" => current_entry_version)
+                     .put("https://api.contentful.com/spaces/#{ENV['CONTENTFUL_SPACE_ID']}/assets/#{@asset_id}/files/en-GB/process")  
+                               
+        #Please pass locale from user input
+       
         return res.body.inspect if res.code >= 400
+
         puts "Asset created successfully!"
     end
 end
